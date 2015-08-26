@@ -26,7 +26,9 @@ from apikeys import NYT_ARTICLE_SEARCH_KEY
 
 
 class Articles(object):
-    """Class that holds functions to fetch and store NYT articles"""
+    """
+    Class that holds functions to fetch and store NYT articles
+    """
 
     def __init__(self):
         self.all_articles = []
@@ -36,9 +38,9 @@ class Articles(object):
         """
         Fetches articles from NYT Article Search API
 
-        pages: number of pages. Each page consists of 10 items
-        section: section to fetch articles from
-        sec_or_desk: If true, search in sections, otherwise in newsdesks
+        pages (int): number of pages. Each page consists of 10 items
+        items (list of strings): list of items used as keywords to fetch articles from
+        sec_or_desk (boolean): If true, search in sections, otherwise in newsdesks
         """
 
         # Prepare search string for url
@@ -68,6 +70,8 @@ class Articles(object):
     def write_articles(self,filename):
         """
         Writes saved articles as json to disc
+
+        filename (string): filename with directory called "Articles"
         """
         ### Make folder for saving the data if it does not already exist
         if not os.path.isdir("Articles"):

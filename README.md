@@ -1,6 +1,6 @@
-# Ksquared-News-Article-Recommender
+## Ksquared-News-Article-Recommender
 
-## Recommending News Articles to Twitter Users based on their Tweets
+### Recommending News Articles to Twitter Users based on their Tweets
 
 #### Author: Karsten Kreis
 
