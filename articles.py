@@ -31,6 +31,7 @@ class Articles(object):
     """
 
     def __init__(self):
+        # List of all articles
         self.all_articles = []
 
 
@@ -72,7 +73,7 @@ class Articles(object):
                 print "Error hdrs:\n" + str(e.hdrs)
                 sys.exit()
 
-            # Load json responce into python dictionary and reorganize some data
+            # Load json response into python dictionary and reorganize some data
             articles = json.loads(response)
             articles_smooth = articles["response"]["docs"]
             for i in range(len(articles_smooth)):

@@ -26,6 +26,7 @@ class DataPolisher(object):
     """
 
     def __init__(self):
+        # Dataframe to keep the data
         self.data = pd.DataFrame()
 
 

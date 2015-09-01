@@ -25,7 +25,10 @@ class Algorithm(object):
     This algorithm class has methods for training the algorithm which classifies the New York Times articles into their sections
     """
     def __init__(self):
+        # Dataframe to keep the data
         self.data = pd.DataFrame()
+
+        # Set the algorithm's model and its text vectorizer
         self.model = LogisticRegression()
         self.tfidf = TfidfVectorizer(stop_words = 'english', ngram_range=(1,2), max_features=1000, min_df=20, max_df=.1, analyzer='word')
 
