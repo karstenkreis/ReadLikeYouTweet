@@ -18,6 +18,10 @@ import glob
 import json
 import pandas as pd
 import numpy as np
+import os
+
+# Get path to repository (requires a module named "apikeyspath.py" with path to repo)
+from apikeyspath import PATH_TO_REPO
 
 
 class DataPolisher(object):
@@ -45,7 +49,7 @@ class DataPolisher(object):
         for idx, section in enumerate(["Arts", "Business", "Food", "Health", "NY", "Politics", "RealEstate", "Science", "Sports", "Style", "Tech", "Travel", "US", "World"]):
 
             # Get files and set up empty dataframe and list
-            files = glob.glob(folder + "/Articles_" + section + "*.json")
+            files = glob.glob(PATH_TO_REPO + folder + "/Articles_" + section + "*.json")
             sectiondata = pd.DataFrame()
             list_ = []
 
@@ -101,7 +105,12 @@ class DataPolisher(object):
         filename (string): filename for pickled datafile
         """
 
-        self.data.to_pickle(filename)
+        # Make folder for saving the data if it does not already exist
+        if not os.path.isdir(PATH_TO_REPO + "data"):
+            cmd = "mkdir {}data".format(PATH_TO_REPO)
+            os.system(cmd)
+
+        self.data.to_pickle(PATH_TO_REPO + "data/" + filename)
 
 
 
@@ -111,7 +120,7 @@ def main():
     """
     # Make class, then load, clean and write data
     MyDataPolisher = DataPolisher()
-    MyDataPolisher.loaddata("Articles")
+    MyDataPolisher.loaddata("articles")
     MyDataPolisher.cleandata()
     MyDataPolisher.writedata("clean_nyt_training_data.pkl")
 
