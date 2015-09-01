@@ -23,9 +23,10 @@ import json
 import random
 from collections import Counter
 
-# Get Keys (requires a module named "apikeys.py" with your API keys)
-from apikeys import NYT_TOP_STORIES_KEY
-from apikeys import TW_TOKEN_KEY, TW_TOKEN, TW_CON_SECRET_KEY, TW_CON_SECRET
+# Get Keys (requires a module named "apikeyspath.py" with your API keys)
+from apikeyspath import NYT_TOP_STORIES_KEY
+from apikeyspath import TW_TOKEN_KEY, TW_TOKEN, TW_CON_SECRET_KEY, TW_CON_SECRET
+from apikeyspath import PATH_TO_REPO
 
 
 
@@ -36,8 +37,8 @@ class Predictor(object):
 
     def __init__(self, model_pickle, tfidf_pickle):
         # Load the model and the text vectorizer
-        self.model = pickle.load(open(model_pickle))
-        self.tfidf = pickle.load(open(tfidf_pickle))
+        self.model = pickle.load(open(PATH_TO_REPO + "data/" + model_pickle))
+        self.tfidf = pickle.load(open(PATH_TO_REPO + "data/" + tfidf_pickle))
 
         # Label dictionary for nice categories
         self.label_dict = {0: "Arts", 1: "Business", 2: "Food", 3: "Health", 4: "NY", 5: "Politics", 6: "RealEstate", 7: "Science", \

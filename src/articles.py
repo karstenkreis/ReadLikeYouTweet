@@ -21,8 +21,9 @@ import sys
 import os
 import time
 
-# Get Keys (requires a module named "apikeys.py" with your API key in the variable NYT_ARTICLE_SEARCH_KEY)
-from apikeys import NYT_ARTICLE_SEARCH_KEY
+# Get keys (requires a module named "apikeyspath.py" with your API key in the variable NYT_ARTICLE_SEARCH_KEY) and path to repository
+from apikeyspath import NYT_ARTICLE_SEARCH_KEY
+from apikeyspath import PATH_TO_REPO
 
 
 class Articles(object):
@@ -127,12 +128,12 @@ class Articles(object):
         filename (string): filename with directory called "Articles"
         """
         # Make folder for saving the data if it does not already exist
-        if not os.path.isdir("Articles2"):
-            cmd = "mkdir Articles2"
+        if not os.path.isdir(PATH_TO_REPO + "articles"):
+            cmd = "mkdir {}articles".format(PATH_TO_REPO)
             os.system(cmd)
 
         # And save the data
-        open("Articles2/" + filename + ".json", "w").write(json.dumps(self.all_articles))
+        open(PATH_TO_REPO + "articles/" + filename + ".json", "w").write(json.dumps(self.all_articles))
 
 
     def clear_articles(self):

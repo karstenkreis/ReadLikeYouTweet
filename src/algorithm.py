@@ -19,6 +19,9 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 
+# Get path to repository (requires a module named "apikeyspath.py" with path to repo)
+from apikeyspath import PATH_TO_REPO
+
 
 class Algorithm(object):
     """
@@ -39,7 +42,7 @@ class Algorithm(object):
 
         filename (string): filename of the pickled data
         """
-        self.data = pd.read_pickle(filename)
+        self.data = pd.read_pickle(PATH_TO_REPO + "data/" + filename)
 
 
     def fitdata(self):
@@ -64,9 +67,9 @@ class Algorithm(object):
         filename_model (string): filename of the pickled model
         filename_tfidf (string): filename of the pickled tfidf vectorizer
         """
-        with open(filename_model, 'w') as f:
+        with open(PATH_TO_REPO + "data/" + filename_model, 'w') as f:
             pickle.dump(self.model, f)
-        with open(filename_tfidf, 'w') as f:
+        with open(PATH_TO_REPO + "data/" + filename_tfidf, 'w') as f:
             pickle.dump(self.tfidf, f)
 
 
