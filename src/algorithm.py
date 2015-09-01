@@ -33,7 +33,7 @@ class Algorithm(object):
 
         # Set the algorithm's model and its text vectorizer
         self.model = LogisticRegression()
-        self.tfidf = TfidfVectorizer(stop_words = 'english', ngram_range=(1,2), max_features=1000, min_df=20, max_df=.1, analyzer='word')
+        self.tfidf = TfidfVectorizer(stop_words = 'english', ngram_range=(1,1), max_features=10000, min_df=50, max_df=.25, analyzer='word')
 
 
     def loaddata(self,filename):
