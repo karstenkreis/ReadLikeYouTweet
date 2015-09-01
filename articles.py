@@ -44,7 +44,6 @@ class Articles(object):
         begin_date (int): Begin date as YYYYMMDD
         end_date (int): End date as YYYYMMDD
         """
-
         # Prepare search string for url
         search = "%22+%22".join(items)
 
@@ -94,9 +93,12 @@ class Articles(object):
                     print "Bad article #" + str(badcount) + ", skip and continue..."
                     continue
 
-                # Make column with all word features. If this fails, skip the article
+                # Make column with all word features. If this fails, skip the article. Also note that blogpost do not have the lead_paragraph feature
                 try:
-                    articles_smooth[i]["allwords"] = " ".join([articles_smooth[i]["header"], articles_smooth[i]["keywordlist"], articles_smooth[i]["lead_paragraph"], articles_smooth[i]["snippet"]])
+                    if articles_smooth[i]["document_type"] == "blogpost":
+                        articles_smooth[i]["allwords"] = " ".join([articles_smooth[i]["header"], articles_smooth[i]["keywordlist"], articles_smooth[i]["snippet"]])
+                    else:
+                        articles_smooth[i]["allwords"] = " ".join([articles_smooth[i]["header"], articles_smooth[i]["keywordlist"], articles_smooth[i]["lead_paragraph"], articles_smooth[i]["snippet"]])
                 except:
                     badcount += 1
                     print "Bad article #" + str(badcount) + ", skip and continue..."
@@ -124,12 +126,12 @@ class Articles(object):
         filename (string): filename with directory called "Articles"
         """
         # Make folder for saving the data if it does not already exist
-        if not os.path.isdir("Articles"):
-            cmd = "mkdir Articles"
+        if not os.path.isdir("Articles2"):
+            cmd = "mkdir Articles2"
             os.system(cmd)
 
         # And save the data
-        open("Articles/" + filename + ".json", "w").write(json.dumps(self.all_articles))
+        open("Articles2/" + filename + ".json", "w").write(json.dumps(self.all_articles))
 
 
     def clear_articles(self):
@@ -140,9 +142,10 @@ class Articles(object):
 
 
 
-
-if __name__ == '__main__':
-
+def main():
+    """
+    Main function
+    """
     # Get training data for politics class by search on news desks
     CategoriesDesks = {"Politics" : ["Politics", "Washington"]}
 
@@ -157,7 +160,7 @@ if __name__ == '__main__':
     begin_dates = [20150301, 20140901, 20140301, 20130901, 20130301, 20120901, 20120301, 20110901, 20110301, 20100901]
     end_dates = [20150827, 20150228, 20140831, 20140228, 20130831, 20130228, 20120831, 20120229, 20110831, 20110228]
 
-    # Query the API and collect all articles for all categories
+    # Query the API and collect all articles for all categories (note that you typically cannot do this in one run, as the article API allows only 10.000 calls per day)
     for key, sections in CategoriesSections.iteritems():
         print "Scraping Section " + key + "..."
         for start, end in zip(begin_dates, end_dates):
@@ -173,3 +176,8 @@ if __name__ == '__main__':
             AllArticles.write_articles("Articles_" + key  + "_start" + str(start) + "_end" + str(end))
             AllArticles.clear_articles()
         print "Scraping Newsdesks " + key + " done.\n"
+
+
+
+if __name__ == '__main__':
+    main()
