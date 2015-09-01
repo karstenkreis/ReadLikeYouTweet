@@ -44,3 +44,4 @@ There are many possible enhancements and extensions
 * *datapreparation.py*: Cleans the data
 * *algorithm.py*: Parametrizes the tf-idf vectorizer and fits the Logistic Regression model
 * *predictor.py*: Connects to Twitter and New York Times Top Stories API and recommends articles to Twitter users
+* *visualizations.ipynb*: Shows a few data and model visualizations
