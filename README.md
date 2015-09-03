@@ -34,9 +34,10 @@ There are many possible enhancements and extensions
 * Build a web interface
 * Do not recommend "random" articles from the top stories of the given section but look for the smallest Jaccard distance between articles and the user's tweets and recommend accordingly
 * Predict probabilities instead of labels directly and do not only recommend from one section but from several probable ones
+* Do not only recommend articles from the New York Times, but also The Guardian
+* Check where the user comes from (UK, US, Australia) and recommend either from NYT/Guardian US, Guardian UK, or Guardian Australia
 * Fit a better model and try other classifiers
 * Use dimensionality reduction or clustering techniques to gain further insights and/or reduce features
-* Do not only recommend articles from the New York Times (Guardian? USA Today?)
 
 #### Files
 

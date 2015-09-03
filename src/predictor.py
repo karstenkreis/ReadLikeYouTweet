@@ -68,7 +68,7 @@ class Predictor(object):
         singleletters = [chr(i) for i in range(97,123)] + [chr(i).upper() for i in range(97,123)]
 
         # Get the tweets and clean them from non-alphabetic characters. Also, remove the "RT", which all retweets have
-        for status in tweepy.Cursor(self.api.user_timeline, id=user).items(50):
+        for status in tweepy.Cursor(self.api.user_timeline, id=user).items(100):
             text = status.text
             wordlist = "".join( [char if char in singleletters else " " for char in text] ).split()
             cleanwordlist = [word for word in wordlist if word not in singleletters + ["RT"]]
