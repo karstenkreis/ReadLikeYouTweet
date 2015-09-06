@@ -45,6 +45,7 @@ class Articles(object):
         sec_or_desk (boolean): If true, search in sections, otherwise in newsdesks
         begin_date (int): Begin date as YYYYMMDD
         end_date (int): End date as YYYYMMDD
+        returns nothing
         """
         # Prepare search string for url
         search = "%22+%22".join(items)
@@ -121,11 +122,12 @@ class Articles(object):
             self.all_articles.extend(articles_smooth)
 
 
-    def write_articles(self,filename):
+    def write_articles(self, filename):
         """
         Writes saved articles as json to disc
 
         filename (string): filename with directory called "Articles"
+        returns nothing
         """
         # Make folder for saving the data if it does not already exist
         if not os.path.isdir(PATH_TO_REPO + "articles"):
@@ -139,6 +141,8 @@ class Articles(object):
     def clear_articles(self):
         """
         Clears article list
+
+        returns nothing
         """
         self.all_articles = []
 
@@ -167,7 +171,7 @@ def main():
         print "Scraping Section " + key + "..."
         for start, end in zip(begin_dates, end_dates):
             AllArticles.fetch_articles(pages = pages, items = sections, sec_or_desk = True, begin_date = start, end_date = end)
-            AllArticles.write_articles("Articles_" + key + "_start" + str(start) + "_end" + str(end))
+            AllArticles.write_articles(filename = "Articles_" + key + "_start" + str(start) + "_end" + str(end))
             AllArticles.clear_articles()
         print "Scraping Section " + key + " done.\n"
 
@@ -175,7 +179,7 @@ def main():
         print "Scraping Newsdesks " + key + "..."
         for start, end in zip(begin_dates, end_dates):
             AllArticles.fetch_articles(pages = pages, items = desks, sec_or_desk = False, begin_date = start, end_date = end)
-            AllArticles.write_articles("Articles_" + key  + "_start" + str(start) + "_end" + str(end))
+            AllArticles.write_articles(filename = "Articles_" + key  + "_start" + str(start) + "_end" + str(end))
             AllArticles.clear_articles()
         print "Scraping Newsdesks " + key + " done.\n"
 

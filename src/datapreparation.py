@@ -34,16 +34,13 @@ class DataPolisher(object):
         self.data = pd.DataFrame()
 
 
-    def loaddata(self,folder):
+    def loaddata(self, folder):
         """
         Loads the data
 
         folder (string): folder in which to look for the datafiles
+        returns nothing
         """
-
-        # path ="Articles/"
-        # data = pd.DataFrame()
-        # label = 1
 
         # Loop over all sections
         for idx, section in enumerate(["Arts", "Business", "Food", "Health", "NY", "Politics", "RealEstate", "Science", "Sports", "Style", "Tech", "Travel", "US", "World"]):
@@ -66,13 +63,11 @@ class DataPolisher(object):
             self.data = pd.concat([self.data,sectiondata])
 
 
-
-            # label+=1
-
-
     def cleandata(self):
         """
         Cleans the data
+
+        returns nothing
         """
 
         # Drop empty entries
@@ -98,11 +93,12 @@ class DataPolisher(object):
         self.data.drop('index', axis=1, inplace=True)
 
 
-    def writedata(self,filename):
+    def writedata(self, filename):
         """
         Writes the data to pickle
 
         filename (string): filename for pickled datafile
+        returns nothing
         """
 
         # Make folder for saving the data if it does not already exist
@@ -120,9 +116,9 @@ def main():
     """
     # Make class, then load, clean and write data
     MyDataPolisher = DataPolisher()
-    MyDataPolisher.loaddata("articles")
+    MyDataPolisher.loaddata(folder = "articles")
     MyDataPolisher.cleandata()
-    MyDataPolisher.writedata("clean_nyt_training_data.pkl")
+    MyDataPolisher.writedata(filename = "clean_nyt_training_data.pkl")
 
 
 

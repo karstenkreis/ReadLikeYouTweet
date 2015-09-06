@@ -36,11 +36,12 @@ class Algorithm(object):
         self.tfidf = TfidfVectorizer(stop_words = 'english', ngram_range=(1,1), max_features=10000, min_df=50, max_df=.25, analyzer='word')
 
 
-    def loaddata(self,filename):
+    def loaddata(self, filename):
         """
         Loads the data
 
         filename (string): filename of the pickled data
+        returns nothing
         """
         self.data = pd.read_pickle(PATH_TO_REPO + "data/" + filename)
 
@@ -48,6 +49,8 @@ class Algorithm(object):
     def fitdata(self):
         """
         Parametrizes the Tfidf vectorizer and trains the classifier
+
+        returns nothing
         """
         # Vectorize the data
         print "Vectorizing the data..."
@@ -60,12 +63,13 @@ class Algorithm(object):
         print "Fitting done\n"
 
 
-    def writemodel(self,filename_model,filename_tfidf):
+    def writemodel(self, filename_model,filename_tfidf):
         """
         Writes the model and the Tfidf vectorizer to pickle
 
         filename_model (string): filename of the pickled model
         filename_tfidf (string): filename of the pickled tfidf vectorizer
+        returns nothing
         """
         with open(PATH_TO_REPO + "data/" + filename_model, 'w') as f:
             pickle.dump(self.model, f)
@@ -79,7 +83,7 @@ def main():
     Main function
     """
     MyAlgorithm = Algorithm()
-    MyAlgorithm.loaddata("clean_nyt_training_data.pkl")
+    MyAlgorithm.loaddata(filename = "clean_nyt_training_data.pkl")
     MyAlgorithm.fitdata()
     MyAlgorithm.writemodel(filename_model = "log_regression_model.pkl", filename_tfidf = "tfidf_vectorizer.pkl")
 
