@@ -41,8 +41,10 @@ There are many possible enhancements and extensions
 
 #### Files
 
-* *articles.py*: Downloads the training data via the New York Times Article Search API
-* *datapreparation.py*: Cleans the data
-* *algorithm.py*: Parametrizes the tf-idf vectorizer and fits the Logistic Regression model
-* *predictor.py*: Connects to Twitter and New York Times Top Stories API and recommends articles to Twitter users
-* *data_exploration_visualizations.ipynb*: Shows a few data and model visualizations and numbers
+* *src/articles.py*: Downloads the training data via the New York Times Article Search API
+* *src/datapreparation.py*: Cleans the data
+* *src/algorithm.py*: Parametrizes the tf-idf vectorizer and fits the Logistic Regression model
+* *src/predictor.py*: Connects to Twitter and New York Times Top Stories API and recommends articles to Twitter users
+* *data_exploration/data_exploration_visualizations.ipynb*: Shows a few data and model visualizations and numbers
+
+(Note that I did not upload the actual datasets, the pickled logistic regression model and the pickled tfidf vectorizer. However, with the code the data can be scraped again and the models parametrized again)
