@@ -4,13 +4,11 @@
 """
 Script for collecting NYT articles
 
-Author: Karsten Kreis - kreis.karsten@googlemail.com
+Author: Karsten Kreis
 August 2015
 """
 
 __author__ = "Karsten Kreis"
-__maintainer__ = "Karsten Kreis"
-__email__ = "kreis.karsten@googlemail.com"
 __status__ = "Development"
 
 # Imports

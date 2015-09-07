@@ -4,13 +4,11 @@
 """
 Script that uses Flask to implement the New York Times article recommender on a website
 
-Author: Karsten Kreis - kreis.karsten@gmail.com
+Author: Karsten Kreis
 August 2015
 """
 
 __author__ = "Karsten Kreis"
-__maintainer__ = "Karsten Kreis"
-__email__ = "kreis.karsten@googlemail.com"
 __status__ = "Development"
 
 # Imports

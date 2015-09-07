@@ -5,13 +5,11 @@
 Script that predicts news articles based on tweets
 (modified from the original predictor to return recommendations instead of simply printing them)
 
-Author: Karsten Kreis - kreis.karsten@gmail.com
+Author: Karsten Kreis
 August 2015
 """
 
 __author__ = "Karsten Kreis"
-__maintainer__ = "Karsten Kreis"
-__email__ = "kreis.karsten@googlemail.com"
 __status__ = "Development"
 
 # Imports

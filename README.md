@@ -46,5 +46,8 @@ There are many possible enhancements and extensions
 * *src/algorithm.py*: Parametrizes the tf-idf vectorizer and fits the Logistic Regression model
 * *src/predictor.py*: Connects to Twitter and New York Times Top Stories API and recommends articles to Twitter users
 * *data_exploration/data_exploration_visualizations.ipynb*: Shows a few data and model visualizations and numbers
+* *website/website.py*: Runs the model on a website using flask
+* *website/predictor.py*: Modified predictor to return the recommendations and not just print them in the shell
+* *website/ ...*: Further files implement the actual website (design by http://templated.co/)
 
 (Note that I did not upload the actual datasets, the pickled logistic regression model and the pickled tfidf vectorizer. However, with the code the data can be scraped again and the models parametrized again)
