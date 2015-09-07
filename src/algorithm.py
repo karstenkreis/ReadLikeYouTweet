@@ -5,7 +5,7 @@
 Script for building and training the algorithm that predicts news article categories based on text features
 
 Author: Karsten Kreis
-August 2015
+September 2015
 """
 
 __author__ = "Karsten Kreis"

@@ -5,7 +5,7 @@
 Script that uses Flask to implement the New York Times article recommender on a website
 
 Author: Karsten Kreis
-August 2015
+September 2015
 """
 
 __author__ = "Karsten Kreis"
@@ -35,7 +35,7 @@ def show_tweets():
     try:
         tweets = MyPredictor.fetch_tweets(user = twitterhandle, number_of_tweets = 100)
         labels = MyPredictor.predict_class(tweets = tweets, number_of_classes = 1)
-        label, title, abstract, url = MyPredictor.recommend_article(tweets = tweets, labels = labels)
+        label, title, abstract, url = MyPredictor.recommend_article(tweets = tweets, label = labels[0])
 
     # Error? Probably the Twitter handle was unknown
     except:

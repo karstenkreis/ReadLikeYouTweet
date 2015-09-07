@@ -5,7 +5,7 @@
 Script that predicts news articles based on tweets
 
 Author: Karsten Kreis
-August 2015
+September 2015
 """
 
 __author__ = "Karsten Kreis"
@@ -21,6 +21,7 @@ import json
 import numpy as np
 from HTMLParser import HTMLParser
 from collections import Counter
+from nltk.corpus import stopwords
 
 # Get Keys (requires a module named "apikeyspath.py" with your API keys)
 from apikeyspath import NYT_TOP_STORIES_KEY
@@ -104,6 +105,7 @@ class Predictor(object):
             print "It seems like you want to use more classes to recommend articles than predicted by the model."
             print "Try using more tweets and try to predict less classes."
             sys.exit()
+
         return returnlist
 
 
@@ -139,20 +141,20 @@ class Predictor(object):
             # List of Jaccard distances between articles and tweets
             jaccarddistances = []
 
+            # Split tweets into individual words and remove stopwords
+            tweetwordlist = [word for tweet in tweets for word in tweet.split() if word not in stopwords.words('english')]
+
             # Loop over all articles and calculate closest article to user's tweets based on Jaccard distance
             for idx in range(articles["num_results"]):
 
                 # Use all possible informations we have about the article and feed into long string
                 wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["abstract"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
 
-                # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words
+                # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words and stopwords
                 wordlist = "".join( [char if char in self.singleletters else " " for char in wordstring] ).split()
-                cleanwordlist = [word for word in wordlist if word not in self.singleletters]
+                cleanwordlist = [word for word in wordlist if word not in self.singleletters + stopwords.words('english')]
 
-                # Split tweets into individual words
-                tweetwordlist = [word for tweet in tweets for word in tweet.split()]
-
-                # Calculate Jaccard distances and append to list
+                # Remove stopwords and calculate Jaccard distances and append to list
                 jaccarddistances.append(self.jaccard_dist(tweetwordlist, cleanwordlist))
 
             # Argsort
@@ -206,7 +208,7 @@ def main():
     tweets = MyPredictor.fetch_tweets(user = '{}'.format(sys.argv[1]), number_of_tweets = 100)
 
     # Predict the label
-    labels = MyPredictor.predict_class(tweets = tweets, number_of_classes = 2)
+    labels = MyPredictor.predict_class(tweets = tweets, number_of_classes = 1)
 
     # Recommend an article
     MyPredictor.recommend_article(tweets = tweets, labels = labels)

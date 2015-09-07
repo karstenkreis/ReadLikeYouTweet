@@ -5,7 +5,7 @@
 Script for cleaning and preparing the New York Times article data
 
 Author: Karsten Kreis
-August 2015
+September 2015
 """
 
 __author__ = "Karsten Kreis"

@@ -5,7 +5,7 @@
 Script for collecting NYT articles
 
 Author: Karsten Kreis
-August 2015
+September 2015
 """
 
 __author__ = "Karsten Kreis"

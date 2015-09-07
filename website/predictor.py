@@ -3,10 +3,10 @@
 
 """
 Script that predicts news articles based on tweets
-(modified from the original predictor to return recommendations instead of simply printing them)
+(modified from the original predictor to return recommendations instead of simply printing them, also fixed to having only one recommendation)
 
 Author: Karsten Kreis
-August 2015
+September 2015
 """
 
 __author__ = "Karsten Kreis"
@@ -20,8 +20,8 @@ import urllib2
 import httplib
 import json
 import numpy as np
-from HTMLParser import HTMLParser
 from collections import Counter
+from nltk.corpus import stopwords
 
 # Get Keys (requires a module named "apikeyspath.py" with your API keys)
 from apikeyspath import NYT_TOP_STORIES_KEY
@@ -39,9 +39,10 @@ class Predictor(object):
     """
 
     def __init__(self, model_pickle, tfidf_pickle):
-        # Load the model and the text vectorizer
+        # Load the model, the text vectorizer, and the stopwords
         self.model = pickle.load(open(PATH_TO_REPO + "data/" + model_pickle))
         self.tfidf = pickle.load(open(PATH_TO_REPO + "data/" + tfidf_pickle))
+        self.stopwords = stopwords.words('english')
 
         # Label dictionary for nice categories
         self.label_dict = {0: "Arts", 1: "Business", 2: "Food", 3: "Health", 4: "NY", 5: "Politics", 6: "RealEstate", 7: "Science", \
@@ -108,7 +109,7 @@ class Predictor(object):
         return returnlist
 
 
-    def recommend_article(self, tweets, labels):
+    def recommend_article(self, tweets, label):
         """
         Recommend a NYT article based on the provided label
 
@@ -117,64 +118,48 @@ class Predictor(object):
         returns nothing
         """
 
-        # Set counter and get recommendation for all passed labels
-        counter = 0
-        for label in labels:
+        # Get the top stories from the section, this should yield usually 30 artices
+        request_url = "http://api.nytimes.com/svc/topstories/v1/" + self.label_dict_NYT[label] + ".json?api-key=" + NYT_TOP_STORIES_KEY
+        try:
+            response = urllib2.urlopen(request_url).read()
+        except urllib2.HTTPError, e:
+            print "Error code: " + str(e.code)
+            print "Error message: " + e.msg
+            print "Error hdrs:\n" + str(e.hdrs)
+            sys.exit()
 
-            # Increment counter (just for the printing part...)
-            counter += 1
+        # Load json response into python dictionary and randomly choose an article
+        articles = json.loads(response)
 
-            # Get the top stories from the section, this should yield usually 30 artices
-            request_url = "http://api.nytimes.com/svc/topstories/v1/" + self.label_dict_NYT[label] + ".json?api-key=" + NYT_TOP_STORIES_KEY
-            try:
-                response = urllib2.urlopen(request_url).read()
-            except urllib2.HTTPError, e:
-                print "Error code: " + str(e.code)
-                print "Error message: " + e.msg
-                print "Error hdrs:\n" + str(e.hdrs)
-                sys.exit()
+        # List of Jaccard distances between articles and tweets
+        jaccarddistances = []
 
-            # Load json response into python dictionary and randomly choose an article
-            articles = json.loads(response)
+        # Split tweets into individual words and remove stopwords
+        tweetwordlist = [word for tweet in tweets for word in tweet.split() if word not in self.stopwords]
 
-            # List of Jaccard distances between articles and tweets
-            jaccarddistances = []
+        # Loop over all articles and calculate closest article to user's tweets based on Jaccard distance
+        for idx in range(articles["num_results"]):
 
-            # Loop over all articles and calculate closest article to user's tweets based on Jaccard distance
-            for idx in range(articles["num_results"]):
+            # Use all possible informations we have about the article and feed into long string
+            wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["abstract"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
 
-                # Use all possible informations we have about the article and feed into long string
-                wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["abstract"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
+            # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words
+            wordlist = "".join( [char if char in self.singleletters else " " for char in wordstring] ).split()
+            cleanwordlist = [word for word in wordlist if word not in self.singleletters + self.stopwords]
 
-                # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words
-                wordlist = "".join( [char if char in self.singleletters else " " for char in wordstring] ).split()
-                cleanwordlist = [word for word in wordlist if word not in self.singleletters]
+            # Calculate Jaccard distances and append to list
+            jaccarddistances.append(self.jaccard_dist(tweetwordlist, cleanwordlist))
 
-                # Split tweets into individual words
-                tweetwordlist = [word for tweet in tweets for word in tweet.split()]
+        # Argsort
+        argsortedarray = np.argsort(jaccarddistances)
 
-                # Calculate Jaccard distances and append to list
-                jaccarddistances.append(self.jaccard_dist(tweetwordlist, cleanwordlist))
+        # Recommend closest article
+        recommended = argsortedarray[0]
 
-            # Argsort
-            argsortedarray = np.argsort(jaccarddistances)
+        # Make some variety in the sentences...
+        sentencestarts = ["You are probably", "It seems like you are also", "However, you are possibly also", "Furthermore, you could even be"]
 
-            # Recommend closest article
-            recommended = argsortedarray[0]
-
-            # Make some variety in the sentences...
-            sentencestarts = ["You are probably", "It seems like you are also", "However, you are possibly also", "Furthermore, you could even be"]
-
-            # Print recommendations
-            # if counter > 4:
-            #     print sentencestarts[3] + " interested in the topic: " + self.label_dict[label]
-            # else:
-            #     print sentencestarts[counter-1] + " interested in the topic: " + self.label_dict[label]
-            # print "Maybe you find the following article from this topic interesting...\n"
-            # print "TITLE:\n" + HTMLParser().unescape(articles["results"][recommended]["title"]) + "\n"
-            # print "ABSTRACT:\n" + HTMLParser().unescape(articles["results"][recommended]["abstract"]) + "\n"
-            # print "URL:\n" + HTMLParser().unescape(articles["results"][recommended]["url"]) + "\n\n"
-
+        # Return recommendations
         return self.label_dict[label], articles["results"][recommended]["title"], articles["results"][recommended]["abstract"], articles["results"][recommended]["url"]
 
 
@@ -212,7 +197,7 @@ def main():
     labels = MyPredictor.predict_class(tweets = tweets, number_of_classes = 1)
 
     # Recommend an article
-    label, title, abstract, url = MyPredictor.recommend_article(tweets = tweets, labels = labels)
+    label, title, abstract, url = MyPredictor.recommend_article(tweets = tweets, label = labels[0])
 
 
 
