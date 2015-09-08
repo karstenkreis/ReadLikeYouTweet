@@ -48,4 +48,4 @@ There are many possible enhancements and extensions
 * *data_exploration/data_exploration_visualizations.ipynb*: Shows a few data and model visualizations and numbers
 * *website/...*: Website code to implement and run the model as a heroku app in the web using flask (http://readlikeyoutweet.herokuapp.com/)
 
-(Note that I did not upload the actual datasets, the pickled logistic regression model, the pickled tfidf vectorizer and the pickled stopwords. However, with the code the data can be scraped again and the models parametrized again, for the website also the stopwords need to be pickled)
+Note that I did not upload the actual datasets, the pickled logistic regression model, the pickled tfidf vectorizer and the pickled stopwords. However, with the code the data can be scraped again and the models parametrized again. For the website also the stopwords need to be pickled.
