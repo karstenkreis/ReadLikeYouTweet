@@ -4,8 +4,9 @@
 
 ### Author: Karsten Kreis
 
+#### http://readlikeyoutweet.herokuapp.com/
 
-#### Project Outline
+#### Project
 
 This project started as my final project for the General Assembly Data Science class in New York City in summer 2015. The idea is to recommend New York Times articles to Twitter users based on their tweets. This is established in the following way:
 
@@ -23,7 +24,7 @@ The above is done offline. Then the program does the following:
 The final step is the following:
 
 * Connect to the New York Times Top Stories API
-* Fetch the Top Stories from the section which was predicted by the classifier, this usually yields 30 top-stories articles from this section
+* Fetch the top stories from the section which was predicted by the classifier. This usually yields 30 top-stories articles from this section
 * Calculate the Jaccard distance between these articles and the user's tweets
 * Recommend the "closest" article to the Twitter user
 
@@ -32,7 +33,6 @@ The final step is the following:
 
 There are many possible enhancements and extensions
 
-* Build a web interface
 * Predict several probable labels and do not only recommend from one section but from the most probable ones
 * Do not only recommend articles from the New York Times, but also The Guardian (has similar categories and also an API) or other newspapers
 * Check where the user comes from (UK, US, Australia) and recommend either from NYT/Guardian US, Guardian UK, or Guardian Australia
@@ -46,8 +46,6 @@ There are many possible enhancements and extensions
 * *src/algorithm.py*: Parametrizes the tf-idf vectorizer and fits the Logistic Regression model
 * *src/predictor.py*: Connects to Twitter and New York Times Top Stories API and recommends articles to Twitter users
 * *data_exploration/data_exploration_visualizations.ipynb*: Shows a few data and model visualizations and numbers
-* *website/website.py*: Runs the model on a website using flask
-* *website/predictor.py*: Modified predictor to return the recommendations and not just print them in the shell
-* *website/ ...*: Further files implement the actual website (design by http://templated.co/)
+* *website/...*: Website code to implement and run the model as a heroku app in the web using flask (http://readlikeyoutweet.herokuapp.com/)
 
-(Note that I did not upload the actual datasets, the pickled logistic regression model and the pickled tfidf vectorizer. However, with the code the data can be scraped again and the models parametrized again)
+(Note that I did not upload the actual datasets, the pickled logistic regression model, the pickled tfidf vectorizer and the pickled stopwords. However, with the code the data can be scraped again and the models parametrized again, for the website also the stopwords need to be pickled)

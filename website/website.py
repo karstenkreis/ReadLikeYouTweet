@@ -17,7 +17,7 @@ import predictor
 
 # Initialize Flask app and the predictor
 app = Flask(__name__)
-MyPredictor = predictor.Predictor(model_pickle = "log_regression_model.pkl", tfidf_pickle = "tfidf_vectorizer.pkl")
+MyPredictor = predictor.Predictor(model_pickle = "log_regression_model.pkl", tfidf_pickle = "tfidf_vectorizer.pkl", stopwords_pickle = "stopwords.pkl")
 
 # Render the normal website
 @app.route('/')
@@ -35,6 +35,7 @@ def show_tweets():
     try:
         tweets = MyPredictor.fetch_tweets(user = twitterhandle, number_of_tweets = 100)
         labels = MyPredictor.predict_class(tweets = tweets, number_of_classes = 1)
+        print "yay"
         label, title, abstract, url = MyPredictor.recommend_article(tweets = tweets, label = labels[0])
 
     # Error? Probably the Twitter handle was unknown

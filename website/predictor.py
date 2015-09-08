@@ -13,6 +13,7 @@ __author__ = "Karsten Kreis"
 __status__ = "Development"
 
 # Imports
+import os
 import sys
 import pickle
 import tweepy
@@ -21,14 +22,13 @@ import httplib
 import json
 import numpy as np
 from collections import Counter
-from nltk.corpus import stopwords
 
-# Get Keys (requires a module named "apikeyspath.py" with your API keys)
-from apikeyspath import NYT_TOP_STORIES_KEY
-from apikeyspath import TW_TOKEN_KEY, TW_TOKEN, TW_CON_SECRET_KEY, TW_CON_SECRET
-from apikeyspath import PATH_TO_REPO
-
-
+# Keys need to be set in the heroku environment, get them
+TW_CON_SECRET_KEY = os.environ.get('TW_CON_SECRET_KEY')
+TW_CON_SECRET = os.environ.get('TW_CON_SECRET')
+TW_TOKEN_KEY = os.environ.get('TW_TOKEN_KEY')
+TW_TOKEN = os.environ.get('TW_TOKEN')
+NYT_TOP_STORIES_KEY = os.environ.get('NYT_TOP_STORIES_KEY')
 
 class Predictor(object):
     """
@@ -38,11 +38,11 @@ class Predictor(object):
     tfidf_pickle (pickle): Pickled Tfidf text vectorizer
     """
 
-    def __init__(self, model_pickle, tfidf_pickle):
+    def __init__(self, model_pickle, tfidf_pickle, stopwords_pickle):
         # Load the model, the text vectorizer, and the stopwords
-        self.model = pickle.load(open(PATH_TO_REPO + "data/" + model_pickle))
-        self.tfidf = pickle.load(open(PATH_TO_REPO + "data/" + tfidf_pickle))
-        self.stopwords = stopwords.words('english')
+        self.model = pickle.load(open(model_pickle))
+        self.tfidf = pickle.load(open(tfidf_pickle))
+        self.stopwords = pickle.load(open(stopwords_pickle))
 
         # Label dictionary for nice categories
         self.label_dict = {0: "Arts", 1: "Business", 2: "Food", 3: "Health", 4: "NY", 5: "Politics", 6: "RealEstate", 7: "Science", \
@@ -188,7 +188,7 @@ def main():
     Main function
     """
     # Make predictor class, fetch tweets, predict_class
-    MyPredictor = Predictor(model_pickle = "log_regression_model.pkl", tfidf_pickle = "tfidf_vectorizer.pkl")
+    MyPredictor = Predictor(model_pickle = "log_regression_model.pkl", tfidf_pickle = "tfidf_vectorizer.pkl", stopwords_pickle = "stopwords.pkl")
 
     # Fetch the tweets with command line input as twitter handle
     tweets = MyPredictor.fetch_tweets(user = '{}'.format(sys.argv[1]), number_of_tweets = 100)

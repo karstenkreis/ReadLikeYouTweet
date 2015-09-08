@@ -8,6 +8,8 @@
 /* Basic                                                                         */
 /*********************************************************************************/
 
+
+
 	body,input,textarea,select
 	{
 		line-height: 1.75em;
@@ -19,6 +21,16 @@
 	{
 		padding-top: 44px;
 	}
+
+	input[type=text]
+	{
+     		/*border: none;*/
+     		border:none;
+		width: 80%;
+		/*background-image: url(images/textbox_bg.gif);*/
+		padding: 6px;
+		font-size: 20px;
+     }
 
 	h2, h3, h4, h5, h6
 	{
@@ -85,6 +97,7 @@
 	#titleBar
 	{
 		background: #161616;
+		opacity: 0.7;
 	}
 
 		#titleBar .title a
@@ -126,12 +139,13 @@
 
 			#titleBar .toggle:active:after
 			{
-				opacity: 0.75;
+				opacity: 0.7;
 			}
 
 	#navPanel
 	{
 		background: #1f1f1f;
+		opacity: 0.7;
 	}
 
 		#navPanel .link

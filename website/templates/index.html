@@ -22,12 +22,14 @@
 		<link rel="shortcut icon" href="/static/images/icon.jpg">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="/static/js/skel.min.js"></script>
 		<script src="/static/js/skel-panels.min.js"></script>
 		<script src="/static/js/init.js"></script>
 		<noscript>
 			<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
 		</noscript>
 	</head>
 	<body class="homepage" >
@@ -59,9 +61,9 @@
 		<div id="featured">
 			<div class="container">
 				<header>
-					<h2>Please Enter Your Twitter Handle To Obtain <br> <br> <br>New York Times Article Recommendations</h2>
+					<h2>Enter Your Twitter Handle To Obtain New York Times Article Recommendations</h2>
 				</header>
-				Only works if you tweet in English &nbsp;&nbsp;&ndash;&nbsp;&nbsp; scroll down again after sending the request
+				Only works if you tweet in English &nbsp;&nbsp;&#9830;&nbsp;&nbsp; Scroll down again after sending the request
 
 					<p>
                  			<form name="login" method="post" action="/show">

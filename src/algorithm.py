@@ -12,10 +12,11 @@ __author__ = "Karsten Kreis"
 __status__ = "Development"
 
 # Imports
+import pickle
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-import pickle
+from nltk.corpus import stopwords
 
 # Get path to repository (requires a module named "apikeyspath.py" with path to repo)
 from apikeyspath import PATH_TO_REPO
@@ -61,7 +62,7 @@ class Algorithm(object):
         print "Fitting done\n"
 
 
-    def writemodel(self, filename_model,filename_tfidf):
+    def writemodel(self, filename_model, filename_tfidf, filename_stopwords):
         """
         Writes the model and the Tfidf vectorizer to pickle
 
@@ -74,6 +75,10 @@ class Algorithm(object):
         with open(PATH_TO_REPO + "data/" + filename_tfidf, 'w') as f:
             pickle.dump(self.tfidf, f)
 
+        # We need a pickled version of the stopwords for the website, as it's difficult to download the stopword corpus in the heroku cloud
+        with open(PATH_TO_REPO + "data/" + filename_stopwords, 'w') as f:
+            pickle.dump(stopwords.words('english'), f)
+
 
 
 def main():
@@ -83,7 +88,7 @@ def main():
     MyAlgorithm = Algorithm()
     MyAlgorithm.loaddata(filename = "clean_nyt_training_data.pkl")
     MyAlgorithm.fitdata()
-    MyAlgorithm.writemodel(filename_model = "log_regression_model.pkl", filename_tfidf = "tfidf_vectorizer.pkl")
+    MyAlgorithm.writemodel(filename_model = "log_regression_model.pkl", filename_tfidf = "tfidf_vectorizer.pkl", filename_stopwords = "stopwords.pkl")
 
 
 

@@ -23,7 +23,7 @@
 	{
      		/*border: none;*/
      		border:none;
-		width: 400px;
+		width: 350px;
 		/*background-image: url(images/textbox_bg.gif);*/
 		padding: 6px;
 		font-size: 20px;
@@ -115,6 +115,7 @@
 	{
 		margin-bottom: 1.6em;
 		font-size: 12px;
+		line-height:100px;
 	}
 
 		header h2
