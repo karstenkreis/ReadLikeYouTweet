@@ -12,6 +12,7 @@
      September 2015
 -->
 <html>
+<a name="link1"></a>
 	<head>
 		<title>Read Like You Tweet</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -40,10 +41,10 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="active"><a href="#header">Home</a></li>
-						<li><a href="#featured">NYT Article Recommendation</a></li>
-						<li><a href="#main">Under The Hood</a></li>
-						<li><a href="#footer">About The Author</a></li>
+						<li class="active"><a href="#link1">Home</a></li>
+						<li><a href="#link2">NYT Article Recommendation</a></li>
+						<li><a href="#link3">Under The Hood</a></li>
+						<li><a href="#link4">About The Author</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -58,15 +59,16 @@
 		</div>
 
 	<!-- Featured -->
+	<a name="link2"></a>
 		<div id="featured">
 			<div class="container">
 				<header>
 					<h2>Enter Your Twitter Handle To Obtain New York Times Article Recommendations</h2>
 				</header>
-				Only works if you tweet in English &nbsp;&nbsp;&#9830;&nbsp;&nbsp; Scroll down again after sending the request
+				Only works if you tweet in English
 
 					<p>
-                 			<form name="login" method="post" action="/show">
+                 			<form name="login" method="post" action="/show#link2">
                        			<input type="text" name="screen_name" placeholder="" required id="screen_name_input" >
                        			<a href="{{ url_for('.index', _anchor='featured') }}"></a>
                  			</form >
@@ -94,19 +96,21 @@
 		</div>
 
 	<!-- Main -->
+	<a name="link3"></a>
 		<div id="main">
 			<div id="content" class="container">
 						<header>
 							<h2>Under The Hood</h2>
 						</header>
 
-						<p>You may be wondering what is happening under the hood of this little recommendation system. It makes use of various machine learning and data evaluation techniques as well as several APIs. Let me tell you more about it...</p>
-						<p>As a first step, I downloaded more than 100.000 New York Times (NYT) articles via their Article Search API. However, I only got the articles' headlines, keywords, lead paragraphs and some short text snippets. The articles belonged to 14 different categories, like "Politics", "Technology", "Style", etc. Then this text data was cleaned, combined and vectorized with a  term frequency-inverse document frequency vectorizer. Next, I trained a Logistic Regression model, using several one vs. all classifiers, to predict the articles' sections based on their text features. However, in a similar way as the words in a NYT article indicate the section it belongs to, words in tweets are likely to point to the users interests, segmented in the same categories. Therefore, the obtained model is used to predict a user's interests.</p>
-						<p>When a Twitter handle is provided above the system connects to the Twitter API and downloads the user's latest 100 tweets. They are processed in the same way as the articles above and the Logistic Regression model is used to predict the category that the user is most likely to be interested in.</p>
-						<p>Once this section is known, the engine connects to the NYT Top Stories API, which provides the 30 most popular articles from a given section, which is chosen as the previously predicted one. This, however, still leaves us with 30 different articles. In the last step, the recommender calculates the Jaccard distance between all words in the users tweets and the words in the article data. Finally, the closest article is recommended.</p>
-						<p>As for many recommendation problems, the model works well when there is a lot of data, in this case tweets, available and when this data is not noisy, which means that most of the tweets would belong to the same category. This is of course not always the case and rather an exception, but often nevertheless a reasonable recommendation can be made. Finally, there are many ways to further improve the recommendation engine. On the one hand, the model itself could be improved and one could try to train stronger classifiers. On the other hand, one could recommend not only one but several articles from different probable categories. Or even further newspapers other than the New York Times could be included, both for model training as well as recommendation.</p>
-						<p>The sourcecode as well as some details and visualizations of the data and the model can be found on github:</p>
-						<a href="https://github.com/kkreis/Ksquared-News-Article-Recommender" class="fa fa-github-square">&nbsp;&nbsp;<span>Ksquared-News-Article-Recommender</span></a>
+						<p>You may be wondering what is happening under the hood of this little recommendation system. It makes use of machine learning and data analysis techniques as well as several APIs. Let me tell you more about it...</p>
+						<p>As a first step, I downloaded more than 100.000 New York Times (NYT) articles via their Article Search API. However, I only got the articles' headlines, keywords, lead paragraphs and some short text snippets. The articles belong to 14 different categories, like "Politics", "Tech", "Style", etc. Then this text data was cleaned, aggregated and vectorized with a term frequency-inverse document frequency vectorizer. Next, I trained a Logistic Regression model, which used several one-vs-rest classifiers, to predict the articles' sections based on their vectorized text features. However, in a similar way as the words in a NYT article indicate the section it belongs to, the same words in tweets are likely to indicate that the Twitter user is interested in news from this section. Therefore, the obtained model can be used to predict a Twitter user's interests.</p>
+						<p>When a Twitter handle is provided above the system connects to the Twitter API and downloads the user's latest 100 tweets. They are processed in the same way as the articles above and the previously trained Logistic Regression model predicts the category that the user is most likely to be interested in.</p>
+						<p>Once this section is known, the engine connects to the NYT Top Stories API, which provides the 30 latest top story articles from a given section. The recommender fetches the articles from the predicted category. This, however, still leaves 30 different articles. In the last step, the Jaccard distances between all words in the user's tweets and the words in the article data are calculated. Finally, the closest article is recommended.</p>
+						<p>As for many recommendation systems, the model works well when there is a lot of data available, in this case tweets, and when this data is not noisy, which means that most of the tweets would belong to the same category. This is of course not always the case, but often nevertheless a reasonable recommendation can be made. Furthermore, note that the model naturally works only if the user tweets in English, as the articles used for training the algorithm are all written in English.</p>
+						<p>Finally, there are many ways to further improve the recommendation engine. On the one hand, the model itself could be improved and one could try to train stronger classifiers. On the other hand, one could recommend not only one but several articles from different probable categories. Or even further newspapers other than the New York Times could be included, both for model training as well as recommendation. Also an extension of the system beyond targeting only English twitterers and recommending only English newspaper articles could be considered.</p>
+						<p>The sourcecode as well as more details and visualizations of the data and the model can be found on GitHub:</p>
+						<a href="https://github.com/kkreis/ReadLikeYouTweet" class="fa fa-github-square">&nbsp;&nbsp;<span>ReadLikeYouTweet</span></a>
 			</div>
 		</div>
 
@@ -119,6 +123,7 @@
 		</div>
 
 	<!-- Footer -->
+	<a name="link4"></a>
 		<div id="footer">
 			<div class="container">
 				<section>
@@ -128,7 +133,7 @@
 					</header>
 					<ul class="contact">
 						<font size="4">I'm a theoretical and computational physicist, doing my Ph.D. at the Max Planck Institute for Polymer Research in Mainz, Germany. <br> I develop novel algorithms and models for computer simulations in materials science.
-						In 2015, I have been staying as a Visiting Research Scholar at NYU in New York City for 9 months.<br><br>
+						In 2015, I have been staying for 9 months as a Visiting Research Scholar at New York University in New York City.<br><br>
 						Furthermore, I'm a software developer of ESPResSo++, an extensible, flexible, fast and parallel simulation software for soft matter research.<br><br>
 						During my stay in New York I have also become very interested in Big Data and Data Science. Read Like You Tweet is my first pet project on this topic.<br><br><br></font>
 					</ul>
