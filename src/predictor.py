@@ -148,7 +148,7 @@ class Predictor(object):
             for idx in range(articles["num_results"]):
 
                 # Use all possible informations we have about the article and feed into long string
-                wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["abstract"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
+                wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["section"], articles["results"][idx]["subsection"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
 
                 # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words and stopwords
                 wordlist = "".join( [char if char in self.singleletters else " " for char in wordstring] ).split()

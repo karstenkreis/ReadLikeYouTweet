@@ -21,6 +21,7 @@ import urllib2
 import httplib
 import json
 import numpy as np
+from HTMLParser import HTMLParser
 from collections import Counter
 
 # Keys need to be set in the heroku environment, get them
@@ -141,7 +142,7 @@ class Predictor(object):
         for idx in range(articles["num_results"]):
 
             # Use all possible informations we have about the article and feed into long string
-            wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["abstract"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
+            wordstring = " ".join([articles["results"][idx]["title"], articles["results"][idx]["abstract"], articles["results"][idx]["section"], articles["results"][idx]["subsection"], " ".join([string for string in articles["results"][idx]["des_facet"]]), " ".join([string for string in articles["results"][idx]["org_facet"]]), " ".join([string for string in articles["results"][idx]["per_facet"]])])
 
             # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words
             wordlist = "".join( [char if char in self.singleletters else " " for char in wordstring] ).split()
@@ -156,11 +157,8 @@ class Predictor(object):
         # Recommend closest article
         recommended = argsortedarray[0]
 
-        # Make some variety in the sentences...
-        sentencestarts = ["You are probably", "It seems like you are also", "However, you are possibly also", "Furthermore, you could even be"]
-
         # Return recommendations
-        return self.label_dict[label], articles["results"][recommended]["title"], articles["results"][recommended]["abstract"], articles["results"][recommended]["url"]
+        return self.label_dict[label], HTMLParser().unescape(articles["results"][recommended]["title"]), HTMLParser().unescape(articles["results"][recommended]["abstract"]), articles["results"][recommended]["url"]
 
 
     def jaccard_dist(self, list1, list2):

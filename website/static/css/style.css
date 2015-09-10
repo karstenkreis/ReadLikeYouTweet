@@ -21,10 +21,7 @@
 
 	input[type=text]
 	{
-     		/*border: none;*/
-     		border:none;
 		width: 350px;
-		/*background-image: url(images/textbox_bg.gif);*/
 		padding: 6px;
 		font-size: 20px;
      }

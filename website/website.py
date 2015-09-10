@@ -40,7 +40,7 @@ def show_tweets():
 
     # Error? Probably the Twitter handle was unknown
     except:
-        return render_template('/index.html', twitterhandle = "", topic = "An error occured - maybe the Twitter user does not exist?", bla = "Entered Twitter handle was: " + twitterhandle, title = "", abstract = "" , url = "")
+        return render_template('/index.html', twitterhandle = "", topic = "An error occured - maybe the Twitter user does not exist or there are no tweets?", bla = "Entered Twitter handle was: " + twitterhandle, title = "", abstract = "" , url = "")
 
     # Otherwise return recommendation and reload the website including this data
     return render_template('/index.html', twitterhandle = "Your Twitter handle: " + twitterhandle, topic = "You are probably interested in this topic: " + str(label), bla = "Maybe you find the following article from this topic interesting... ", title = "TITLE: " + title, abstract = "ABSTRACT: " + abstract, url = url)

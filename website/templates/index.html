@@ -27,7 +27,6 @@
 		<script src="/static/js/skel-panels.min.js"></script>
 		<script src="/static/js/init.js"></script>
 		<noscript>
-			<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-desktop.css" />
@@ -70,7 +69,6 @@
 					<p>
                  			<form name="login" method="post" action="/show#link2">
                        			<input type="text" name="screen_name" placeholder="" required id="screen_name_input" >
-                       			<a href="{{ url_for('.index', _anchor='featured') }}"></a>
                  			</form >
                  		</p>
                  		<br>
@@ -104,9 +102,10 @@
 						</header>
 
 						<p>You may be wondering what is happening under the hood of this little recommendation system. It makes use of machine learning and data analysis techniques as well as several APIs. Let me tell you more about it...</p>
-						<p>As a first step, I downloaded more than 100.000 New York Times (NYT) articles via their Article Search API. However, I only got the articles' headlines, keywords, lead paragraphs and some short text snippets. The articles belong to 14 different categories, like "Politics", "Tech", "Style", etc. Then this text data was cleaned, aggregated and vectorized with a term frequency-inverse document frequency vectorizer. Next, I trained a Logistic Regression model, which used several one-vs-rest classifiers, to predict the articles' sections based on their vectorized text features. However, in a similar way as the words in a NYT article indicate the section it belongs to, the same words in tweets are likely to indicate that the Twitter user is interested in news from this section. Therefore, the obtained model can be used to predict a Twitter user's interests.</p>
+						<p>As a first step, I downloaded more than 100,000 New York Times (NYT) articles via their Article Search API. However, I only got the articles' headlines, keywords, lead paragraphs and some short text snippets. The articles belong to 14 different categories, like "Politics", "Tech", "Style", etc. Then this text data was cleaned, aggregated and vectorized with a term frequency-inverse document frequency vectorizer. Next, I trained a multiclass Logistic Regression model, which used several one-vs-rest classifiers, to predict the articles' sections based on their vectorized text features. However, in a similar way as the words in a NYT article indicate the section it belongs to, the same words in tweets are likely to indicate that the Twitter user is interested in news from this section. Therefore, the obtained model can be used to predict a Twitter user's interests.</p>
 						<p>When a Twitter handle is provided above the system connects to the Twitter API and downloads the user's latest 100 tweets. They are processed in the same way as the articles above and the previously trained Logistic Regression model predicts the category that the user is most likely to be interested in.</p>
-						<p>Once this section is known, the engine connects to the NYT Top Stories API, which provides the 30 latest top story articles from a given section. The recommender fetches the articles from the predicted category. This, however, still leaves 30 different articles. In the last step, the Jaccard distances between all words in the user's tweets and the words in the article data are calculated. Finally, the closest article is recommended.</p>
+						<p>Once this section is known, the engine connects to the NYT Top Stories API, which provides the 30 latest top story articles from a given section. The recommender fetches the articles from the predicted category. This, however, still leaves 30 different articles. In the last step, the Jaccard distances between all words in the user's tweets and the words in the article data are calculated. Finally, the closest article is recommended. The whole procedure is visualized below.</p>
+						<img src="/static/images/readlikeyoutweet_schematic.png" alt="ReadLikeYouTweet Schematic" style="width:70%;">
 						<p>As for many recommendation systems, the model works well when there is a lot of data available, in this case tweets, and when this data is not noisy, which means that most of the tweets would belong to the same category. This is of course not always the case, but often nevertheless a reasonable recommendation can be made. Furthermore, note that the model naturally works only if the user tweets in English, as the articles used for training the algorithm are all written in English.</p>
 						<p>Finally, there are many ways to further improve the recommendation engine. On the one hand, the model itself could be improved and one could try to train stronger classifiers. On the other hand, one could recommend not only one but several articles from different probable categories. Or even further newspapers other than the New York Times could be included, both for model training as well as recommendation. Also an extension of the system beyond targeting only English twitterers and recommending only English newspaper articles could be considered.</p>
 						<p>The sourcecode as well as more details and visualizations of the data and the model can be found on GitHub:</p>
