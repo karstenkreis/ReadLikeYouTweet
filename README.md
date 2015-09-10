@@ -53,8 +53,8 @@ There are many possible improvements and extensions:
 * *[src/algorithm.py](https://github.com/kkreis/ReadLikeYouTweet/blob/master/src/algorithm.py)*: Parametrizes the tf-idf vectorizer and fits the Logistic Regression model
 * *[src/predictor.py](https://github.com/kkreis/ReadLikeYouTweet/blob/master/src/predictor.py)*: Connects to Twitter and New York Times Top Stories API and recommends articles to Twitter users (needs Twitter handle as command line input)
 * *[underthehood.ipynb](https://github.com/kkreis/ReadLikeYouTweet/blob/master/underthehood.ipynb)*: Discusses the engine in detail and shows a few data and model visualizations as well as numbers
-* *[readlikeyoutweet_schematic.png](https://github.com/kkreis/ReadLikeYouTweet/blob/master/readlikeyoutweet_schematic.png)*: Schematic visualization of the recommenders workflow
-* *website/...*: Website code to implement and run the model as a heroku app in the web using flask (http://readlikeyoutweet.herokuapp.com/)
+* *[readlikeyoutweet_schematic.png](https://github.com/kkreis/ReadLikeYouTweet/blob/master/readlikeyoutweet_schematic.png)*: Schematic visualization of the recommender's workflow
+* *[website/...](https://github.com/kkreis/ReadLikeYouTweet/tree/master/website)*: Website code to implement and run the model as a heroku app in the web using flask (http://readlikeyoutweet.herokuapp.com/)
 
 Note that I did not upload the actual datasets, the pickled logistic regression model, the pickled tfidf vectorizer and the pickled stopwords (for the website also the stopwords need to be pickled). However, with the code the data can be downloaded again and the models parametrized again.
 
