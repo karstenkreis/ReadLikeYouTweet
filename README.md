@@ -19,7 +19,7 @@ The above happened "offline". Similarly as the words in an article indicate the 
 The program/website does the following:
 
 * A Twitter user provides his Twitter handle
-* With the [Twitter API](https://dev.twitter.com/overview/api)his 100 latest tweets are downloaded
+* With the [Twitter API](https://dev.twitter.com/overview/api) the 100 latest tweets are downloaded
 * These tweets are processed and vectorized as the article data before and feeded into the Logistic Regression model
 * This should, hopefully, yield the category the user may want to read news from
 
