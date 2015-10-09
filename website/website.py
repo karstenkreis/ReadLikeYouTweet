@@ -35,7 +35,6 @@ def show_tweets():
     try:
         tweets = MyPredictor.fetch_tweets(user = twitterhandle, number_of_tweets = 100)
         labels = MyPredictor.predict_class(tweets = tweets, number_of_classes = 1)
-        print "yay"
         label, title, abstract, url = MyPredictor.recommend_article(tweets = tweets, label = labels[0])
 
     # Error? Probably the Twitter handle was unknown
