@@ -64,7 +64,7 @@ class Articles(object):
             time.sleep(0.1)
 
             # Get the data
-            request_url = "http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=" + searchtype + ".contains%3A%28%22" + search + "%22%29&fl=web_url%2Csnippet%2Clead_paragraph%2Cabstract%2Cheadline%2Ckeywords%2Cpub_date%2Cdocument_type%2Cnews_desk%2Ctype_of_material&page=" + str(page) + "&begin_date=" + str(begin_date) + "&end_date=" + str(end_date) + "&api-key=" + NYT_ARTICLE_SEARCH_KEY
+            request_url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?fq=" + searchtype + ".contains%3A%28%22" + search + "%22%29&fl=web_url%2Csnippet%2Clead_paragraph%2Cabstract%2Cheadline%2Ckeywords%2Cpub_date%2Cdocument_type%2Cnews_desk%2Ctype_of_material&page=" + str(page) + "&begin_date=" + str(begin_date) + "&end_date=" + str(end_date) + "&api-key=" + NYT_ARTICLE_SEARCH_KEY
             try:
                 response = urllib2.urlopen(request_url).read()
             except urllib2.HTTPError, e:
