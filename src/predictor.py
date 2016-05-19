@@ -126,7 +126,7 @@ class Predictor(object):
             counter += 1
 
             # Get the top stories from the section, this should yield usually 30 artices
-            request_url = "http://api-beta.nytimes.com/svc/topstories/v1/" + self.label_dict_NYT[label] + ".json?api-key=" + NYT_TOP_STORIES_KEY
+            request_url = "https://api.nytimes.com/svc/topstories/v2/" + self.label_dict_NYT[label] + ".json?api-key=" + NYT_TOP_STORIES_KEY
             try:
                 response = urllib2.urlopen(request_url).read()
             except urllib2.HTTPError, e:
