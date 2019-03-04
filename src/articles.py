@@ -3,13 +3,8 @@
 
 """
 Script for collecting NYT articles
-
-Author: Karsten Kreis
 September 2015
 """
-
-__author__ = "Karsten Kreis"
-__status__ = "Development"
 
 # Imports
 import urllib2

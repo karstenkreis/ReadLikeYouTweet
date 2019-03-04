@@ -3,13 +3,8 @@
 
 """
 Script for cleaning and preparing the New York Times article data
-
-Author: Karsten Kreis
 September 2015
 """
-
-__author__ = "Karsten Kreis"
-__status__ = "Development"
 
 # Imports
 import glob

@@ -3,13 +3,8 @@
 
 """
 Script that uses Flask to implement the New York Times article recommender on a website
-
-Author: Karsten Kreis
 September 2015
 """
-
-__author__ = "Karsten Kreis"
-__status__ = "Development"
 
 # Imports
 from flask import Flask, render_template, request
@@ -39,7 +34,7 @@ def show_tweets():
 
     # Error? Probably the Twitter handle was unknown
     except:
-        return render_template('/index.html', twitterhandle = "", topic = "An error occured - maybe the Twitter user does not exist or there are no tweets?", bla = "Entered Twitter handle was: " + twitterhandle, title = "", abstract = "" , url = "")
+        return render_template('/index.html', twitterhandle = "", topic = "An error occured. Maybe the Twitter user does not exist or there are no tweets?\nAlternatively, maybe the Twitter or the New York Times API did not work. Unfortunately, this happens sometimes... try again later in this case.", bla = "Entered Twitter handle was: " + twitterhandle, title = "", abstract = "" , url = "")
 
     # Otherwise return recommendation and reload the website including this data
     return render_template('/index.html', twitterhandle = "Your Twitter handle: " + twitterhandle, topic = "You are probably interested in this topic: " + str(label), bla = "Maybe you find the following article from this topic interesting... ", title = "TITLE: " + title, abstract = "ABSTRACT: " + abstract, url = url)

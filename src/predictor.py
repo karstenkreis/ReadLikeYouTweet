@@ -3,13 +3,8 @@
 
 """
 Script that predicts news articles based on tweets
-
-Author: Karsten Kreis
 September 2015
 """
-
-__author__ = "Karsten Kreis"
-__status__ = "Development"
 
 # Imports
 import sys

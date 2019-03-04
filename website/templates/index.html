@@ -107,7 +107,7 @@
 						<p>Once this section is known, the engine connects to the NYT Top Stories API, which provides the 30 latest top story articles from a given section. The recommender fetches the articles from the predicted category. This, however, still leaves 30 different articles. In the last step, the Jaccard distances between all words in the user's tweets and the words in the article data are calculated. Finally, the closest article is recommended. The whole procedure is visualized below.</p>
 						<img src="/static/images/readlikeyoutweet_schematic.png" alt="ReadLikeYouTweet Schematic" style="width:70%;">
 						<p>As for many recommendation systems, the model works well when there is a lot of data available, in this case tweets, and when this data is not noisy, which means that most of the tweets would belong to the same category. This is of course not always the case, but often nevertheless a reasonable recommendation can be made. Furthermore, note that the model naturally works only if the user tweets in English, as the articles used for training the algorithm are all written in English.</p>
-						<p>Finally, there are many ways to further improve the recommendation engine. On the one hand, the model itself could be improved and one could try to train stronger classifiers. On the other hand, one could recommend not only one but several articles from different probable categories. Or even further newspapers other than the New York Times could be included, both for model training as well as recommendation. Also an extension of the system beyond targeting only English twitterers and recommending only English newspaper articles could be considered.</p>
+						<p>Finally, there are many ways to further improve the recommendation engine. On the one hand, the model itself could be improved and one could try to train stronger classifiers. On the other hand, one could recommend not only one but several articles from different probable categories. Or even further newspapers other than the New York Times could be included, both for model training as well as recommendation. Also an extension of the system beyond targeting only English twitterers and recommending only English newspaper articles could be considered. Finally, note that the model would have to be retrained with more recent NYT article data every now and then in order to stay accurate.</p>
 						<p>The sourcecode as well as more details and visualizations of the data and the model can be found on GitHub:</p>
 						<a href="https://github.com/kkreis/ReadLikeYouTweet" class="fa fa-github-square">&nbsp;&nbsp;<span>ReadLikeYouTweet</span></a>
 			</div>
@@ -126,23 +126,12 @@
 		<div id="footer">
 			<div class="container">
 				<section>
-					<header>
-						<h2>ABOUT THE AUTHOR</h2>
-						<font size="5" color="#9a9999"><br>&ndash;<br>Karsten Kreis</font>
-					</header>
 					<ul class="contact">
-						<font size="4">I'm a theoretical and computational physicist, doing my Ph.D. at the Max Planck Institute for Polymer Research in Mainz, Germany. <br> I develop novel algorithms and models for computer simulations in materials science.
-						In 2015, I have been staying for 9 months as a Visiting Research Scholar at New York University in New York City.<br><br>
-						Furthermore, I'm a software developer of ESPResSo++, an extensible, flexible, fast and parallel simulation software for soft matter research.<br><br>
-						During my stay in New York I have also become very interested in Big Data and Data Science. Read Like You Tweet is my first pet project on this topic.<br><br><br></font>
+						<font size="4"> I am Karsten and I built this app during a course on data science that I took a few years ago. I am not updating it anymore and I am also not retraining the model with more recent data, but I am still trying to keep it running.</font>
 					</ul>
 				</section>
 				<section>
-					<header>
-						<h2>GET IN TOUCH</h2>
-					</header>
 					<ul class="contact">
-						<font size="4">karsten underscore kreis at web dot de</font><br><br>
 						<font size="4"><a href="https://www.linkedin.com/in/karstenkreis" class="fa fa-linkedin">&nbsp;&nbsp;<span>LinkedIn</span></a></font>
 					</ul>
 				</section>
