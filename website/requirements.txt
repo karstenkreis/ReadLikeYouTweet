@@ -1,7 +1,7 @@
 numpy==1.9.2
 scipy==0.15.1
 Flask==0.10.1
-gunicorn==19.3.0
+gunicorn==19.5.0
 Jinja2==2.7.3
 tweepy==3.3.0
 scikit-learn==0.17.1
