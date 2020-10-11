@@ -3,8 +3,13 @@
 
 """
 Script that uses Flask to implement the New York Times article recommender on a website
+
+Author: Karsten Kreis
 September 2015
 """
+
+__author__ = "Karsten Kreis"
+__status__ = "Development"
 
 # Imports
 from flask import Flask, render_template, request

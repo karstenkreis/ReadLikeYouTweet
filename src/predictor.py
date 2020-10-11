@@ -16,9 +16,8 @@ import json
 import numpy as np
 from HTMLParser import HTMLParser
 from collections import Counter
-from nltk.corpus import stopwords
 
-# Get Keys (requires a module named "apikeyspath.py" with your API keys)
+# Get Keys (requires a module named "apikeyspath.py" with your API keys) and path to repository
 from apikeyspath import NYT_TOP_STORIES_KEY
 from apikeyspath import TW_TOKEN_KEY, TW_TOKEN, TW_CON_SECRET_KEY, TW_CON_SECRET
 from apikeyspath import PATH_TO_REPO
@@ -33,10 +32,11 @@ class Predictor(object):
     tfidf_pickle (pickle): Pickled Tfidf text vectorizer
     """
 
-    def __init__(self, model_pickle, tfidf_pickle):
-        # Load the model and the text vectorizer
+    def __init__(self, model_pickle, tfidf_pickle, stopwords_pickle):
+        # Load the model, the text vectorizer, and the stopwords
         self.model = pickle.load(open(PATH_TO_REPO + "data/" + model_pickle))
         self.tfidf = pickle.load(open(PATH_TO_REPO + "data/" + tfidf_pickle))
+        self.stopwords = pickle.load(open(PATH_TO_REPO + "data/" + stopwords_pickle))
 
         # Label dictionary for nice categories
         self.label_dict = {0: "Arts", 1: "Business", 2: "Food", 3: "Health", 4: "NY", 5: "Politics", 6: "RealEstate", 7: "Science", \
@@ -137,7 +137,7 @@ class Predictor(object):
             jaccarddistances = []
 
             # Split tweets into individual words and remove stopwords
-            tweetwordlist = [word for tweet in tweets for word in tweet.split() if word not in stopwords.words('english')]
+            tweetwordlist = [word for tweet in tweets for word in tweet.split() if word not in self.stopwords]
 
             # Loop over all articles and calculate closest article to user's tweets based on Jaccard distance
             for idx in range(articles["num_results"]):
@@ -147,7 +147,7 @@ class Predictor(object):
 
                 # Clean all numbers, punktuation and everything else apart from alphabetic characters. Also remove single character words and stopwords
                 wordlist = "".join( [char if char in self.singleletters else " " for char in wordstring] ).split()
-                cleanwordlist = [word for word in wordlist if word not in self.singleletters + stopwords.words('english')]
+                cleanwordlist = [word for word in wordlist if word not in self.singleletters + self.stopwords]
 
                 # Remove stopwords and calculate Jaccard distances and append to list
                 jaccarddistances.append(self.jaccard_dist(tweetwordlist, cleanwordlist))
@@ -197,7 +197,7 @@ def main():
     Main function
     """
     # Make predictor class, fetch tweets, predict_class
-    MyPredictor = Predictor(model_pickle = "log_regression_model.pkl", tfidf_pickle = "tfidf_vectorizer.pkl")
+    MyPredictor = Predictor(model_pickle = "log_regression_model.pkl", tfidf_pickle = "tfidf_vectorizer.pkl", stopwords_pickle = "stopwords.pkl")
 
     # Fetch the tweets with command line input as twitter handle
     tweets = MyPredictor.fetch_tweets(user = '{}'.format(sys.argv[1]), number_of_tweets = 100)
